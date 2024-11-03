@@ -1,27 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es">
 <head>
-    <title>Detalle de Receta</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de la Receta</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 <header>
-    <h1 th:text="${receta.nombre}">Nombre de la Receta</h1>
+    <h1>Detalle de la Receta</h1>
     <nav>
-        <a th:href="@{/}">Inicio</a>
-        <a th:href="@{/buscar}">Buscar Recetas</a>
-        <a th:href="@{/logout}">Cerrar Sesión</a>
+        <a href="/">Inicio</a>
+        <a href="/buscar">Buscar Recetas</a>
+        <a href="/logout">Cerrar Sesión</a>
     </nav>
 </header>
-<main>
-    <h2>Detalles</h2>
-    <p><strong>Tipo de Cocina:</strong> <span th:text="${receta.tipoCocina}"></span></p>
-    <p><strong>Ingredientes:</strong> <span th:text="${receta.ingredientes}"></span></p>
-    <p><strong>Instrucciones:</strong> <span th:text="${receta.instrucciones}"></span></p>
-    <p><strong>Tiempo de Cocción:</strong> <span th:text="${receta.tiempoCoccion}"></span> minutos</p>
-    <p><strong>Dificultad:</strong> <span th:text="${receta.dificultad}"></span></p>
-    <!-- Fotografía de la receta -->
-    <img th:src="@{/images/paella.jpg}" alt="Imagen de la Receta" />
-</main>
+
+<section id="detalle-receta">
+    <h2 th:text="${nombre}">Nombre de la receta</h2>
+    <img src="/images/paella.jpg" alt="Imagen de Paella" width="400">
+
+    <div class="detalles">
+        <p><strong>Tipo de cocina:</strong> <span th:text="${tipoCocina}">Española</span></p>
+        <p><strong>Ingredientes:</strong> <span th:text="${ingredientes}">Arroz, Azafrán, Mariscos</span></p>
+        <p><strong>Dificultad:</strong> <span th:text="${dificultad}">Media</span></p>
+        <p><strong>Tiempo de cocción:</strong> <span th:text="${tiempoCoccion}">45 minutos</span></p>
+    </div>
+
+    <section class="instrucciones">
+        <h3>Instrucciones de Preparación</h3>
+        <ul>
+            <li th:each="instruction : ${instrucciones}" th:text="${instruction}">Instrucción</li>
+        </ul>
+    </section>
+</section>
+
+<footer>
+    <p>&copy; 2024 Aplicación de Recetas</p>
+</footer>
 </body>
 </html>
