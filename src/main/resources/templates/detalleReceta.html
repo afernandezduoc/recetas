@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalle de Receta</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<header>
+    <h1 th:text="${receta.nombre}">Nombre de la Receta</h1>
+    <nav>
+        <a th:href="@{/}">Inicio</a>
+        <a th:href="@{/buscar}">Buscar Recetas</a>
+        <a th:href="@{/logout}">Cerrar Sesión</a>
+    </nav>
+</header>
+<main>
+    <h2>Detalles</h2>
+    <p><strong>Tipo de Cocina:</strong> <span th:text="${receta.tipoCocina}"></span></p>
+    <p><strong>Ingredientes:</strong> <span th:text="${receta.ingredientes}"></span></p>
+    <p><strong>Instrucciones:</strong> <span th:text="${receta.instrucciones}"></span></p>
+    <p><strong>Tiempo de Cocción:</strong> <span th:text="${receta.tiempoCoccion}"></span> minutos</p>
+    <p><strong>Dificultad:</strong> <span th:text="${receta.dificultad}"></span></p>
+    <!-- Fotografía de la receta -->
+    <img th:src="@{/images/paella.jpg}" alt="Imagen de la Receta" />
+</main>
+</body>
+</html>

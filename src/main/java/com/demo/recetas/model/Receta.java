@@ -22,6 +22,21 @@ public class Receta {
     private Integer tiempoCoccion;
     private String dificultad;
 
+    //Contructor
+
+    public Receta() {
+    }
+
+    public Receta(String nombre, String tipoCocina, String ingredientes, String instrucciones, Integer tiempoCoccion, String dificultad) {
+        this.nombre = nombre;
+        this.tipoCocina = tipoCocina;
+        this.ingredientes = ingredientes;
+        this.instrucciones = instrucciones;
+        this.tiempoCoccion = tiempoCoccion;
+        this.dificultad = dificultad;
+    }
+
+
     // Getters y Setters
 
     public Long getId() {
