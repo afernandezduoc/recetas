@@ -12,7 +12,7 @@ public class RecetaController {
     public String mostrarDetalleReceta(@RequestParam("id") int id, Model model) {
         // Para esta actividad, usamos datos estáticos. En un caso real, buscaríamos la receta en la base de datos usando el id.
 
-        // Agregar detalles estáticos para la receta (por ejemplo, para "Paella")
+        // Agregar detalles estáticos para la receta
         model.addAttribute("nombre", "Paella");
         model.addAttribute("tipoCocina", "Española");
         model.addAttribute("ingredientes", "Arroz, Azafrán, Mariscos");

@@ -21,8 +21,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String inicio(Model model) {
-        // Aquí podrías obtener recetas recientes o populares desde la base de datos
-        List<Receta> recetasRecientes = recetaRepository.findAll(); // Ejemplo de obtener todas las recetas
+        List<Receta> recetasRecientes = recetaRepository.findAll();
         model.addAttribute("recetas", recetasRecientes);
         return "index"; // Plantilla Thymeleaf para la página de inicio
     }
