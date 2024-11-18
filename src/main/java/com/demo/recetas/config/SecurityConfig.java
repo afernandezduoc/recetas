@@ -1,56 +1,53 @@
 package com.demo.recetas.config;
 
+import com.demo.recetas.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final CustomUserDetailsService userDetailsService;
+
+    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/", "/login", "/buscar", "/css/**", "/images/**").permitAll() // Rutas públicas
-                        .anyRequest().authenticated() // Cualquier otra ruta requiere autenticación
+                        .requestMatchers("/", "/login", "/buscar", "/css/**", "/images/**").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login") // Página personalizada de login
+                        .loginPage("/login")
                         .permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll);
+                .logout(logout -> logout.permitAll());
 
         return http.build();
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user1 = User.withDefaultPasswordEncoder()
-                .username("usuario1")
-                .password("password1")
-                .roles("USER")
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder())
+                .and()
                 .build();
+    }
 
-        UserDetails user2 = User.withDefaultPasswordEncoder()
-                .username("usuario2")
-                .password("password2")
-                .roles("USER")
-                .build();
-
-        UserDetails user3 = User.withDefaultPasswordEncoder()
-                .username("usuario3")
-                .password("password3")
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(user1, user2, user3);
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
