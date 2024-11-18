@@ -1,15 +1,15 @@
 package com.demo.recetas.controller;
 
-import com.demo.recetas.model.Receta;
-import com.demo.recetas.repository.RecetaRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import com.demo.recetas.model.Receta;
+import com.demo.recetas.repository.RecetaRepository;
 
 @Controller
 public class BuscarController {
@@ -25,7 +25,7 @@ public class BuscarController {
     public String buscarRecetas(@RequestParam(value = "nombre", required = false) String nombre, Model model) {
         List<Receta> resultados = nombre != null ? recetaRepository.findByNombreContaining(nombre) : List.of();
         model.addAttribute("resultados", resultados);
-        return "buscar"; // Plantilla Thymeleaf que muestra los resultados de búsqueda
+        return "buscar"; // Plantilla Thymeleaf para los resultados
     }
-
 }
+
