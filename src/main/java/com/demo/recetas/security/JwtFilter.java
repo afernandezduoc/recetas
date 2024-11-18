@@ -77,6 +77,8 @@ public class JwtFilter extends OncePerRequestFilter {
                uri.equals("/") ||
                uri.equals("/login") ||
                uri.equals("/register") ||
+               uri.equals("/buscar") ||
+
                uri.equals("/api/auth/login");
     }
 

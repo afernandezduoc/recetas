@@ -46,7 +46,7 @@ function getAuthHeaders() {
 
 // Verificación de rutas protegidas
 async function verifyProtectedRoute() {
-    const protectedRoutes = ['/buscar', '/receta'];
+    const protectedRoutes = [ '/receta'];
     const currentPath = window.location.pathname;
     console.log('Verificando ruta protegida:', currentPath);
     
