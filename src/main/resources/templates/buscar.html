@@ -1,45 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Recetas</title>
-    <link rel="stylesheet" href="/css/styles.css"> <!-- Ruta del CSS para el diseño -->
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<header>
-    <h1>Buscar Recetas</h1>
-</header>
+    <header>
+        <h1>Buscar Recetas</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <div class="show-for-auth">
+                <a href="/buscar">Buscar Recetas</a>
+                <a id="logoutBtn" href="#">Cerrar Sesión</a>
+            </div>
+            <a href="/login" class="show-for-anonymous">Iniciar Sesión</a>
+        </nav>
+    </header>
 
-<!-- Formulario de búsqueda -->
-<section>
-    <form action="/buscar" method="get">
-        <input type="text" name="nombre" placeholder="Escribe el nombre de la receta" required>
-        <button type="submit">Buscar</button>
-    </form>
-</section>
+    <section>
+        <form action="/buscar" method="get">
+            <input type="text" name="nombre" placeholder="Escribe el nombre de la receta">
+            <button type="submit">Buscar</button>
+        </form>
+    </section>
 
-<!-- Resultados de búsqueda -->
-<section>
-    <h2>Resultados de la búsqueda</h2>
+    <section>
+        <h2>Resultados de la búsqueda</h2>
+        <!-- Los resultados se insertarán aquí dinámicamente -->
+    </section>
 
-    <!-- Verificamos si hay resultados -->
-    <div th:if="${#lists.isEmpty(resultados)}">
-        <p>No se encontraron recetas con ese nombre.</p>
-    </div>
+    <footer>
+        <p>&copy; 2024 Aplicación de Recetas</p>
+    </footer>
 
-    <!-- Lista de resultados -->
-    <div th:if="${!#lists.isEmpty(resultados)}">
-        <ul>
-            <li th:each="receta : ${resultados}">
-                <h3 th:text="${receta.nombre}">Nombre de la receta</h3>
-                <p><strong>Tipo de cocina:</strong> <span th:text="${receta.tipoCocina}">Tipo</span></p>
-                <p><strong>Ingredientes:</strong> <span th:text="${receta.ingredientes}">Ingredientes</span></p>
-                <p><strong>Dificultad:</strong> <span th:text="${receta.dificultad}">Dificultad</span></p>
-                <p><strong>Tiempo de cocción:</strong> <span th:text="${receta.tiempoCoccion}">Tiempo</span> minutos</p>
-                <a th:href="@{/receta/detalle(id=${receta.id})}">Ver detalles</a>
-            </li>
-        </ul>
-    </div>
-</section>
+    <script src="/js/config.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/search.js"></script>
 </body>
 </html>

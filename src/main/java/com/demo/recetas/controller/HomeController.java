@@ -1,13 +1,14 @@
 package com.demo.recetas.controller;
 
-import com.demo.recetas.model.Receta;
-import com.demo.recetas.repository.RecetaRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
+import com.demo.recetas.model.Receta;
+import com.demo.recetas.repository.RecetaRepository;
 
 @Controller
 public class HomeController {
@@ -21,8 +22,9 @@ public class HomeController {
 
     @GetMapping("/")
     public String inicio(Model model) {
-        List<Receta> recetasRecientes = recetaRepository.findAll();
+        // Obtener las últimas 5 recetas (o más si lo deseas)
+        List<Receta> recetasRecientes = recetaRepository.findTop5ByOrderByIdDesc();
         model.addAttribute("recetas", recetasRecientes);
-        return "index"; // Plantilla Thymeleaf para la página de inicio
+        return "index"; // Renderizar la vista index.html
     }
 }
